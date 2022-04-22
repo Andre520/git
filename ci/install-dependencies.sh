@@ -43,7 +43,7 @@ macos-latest)
 		git -C "$cask_repo" pull --no-stat --ff-only &&
 		brew install --cask --no-quarantine perforce
 	} ||
-	brew install homebrew/cask/perforce
+	brew install homebrew/cask/perforce || true
 
 	if test -n "$CC_PACKAGE"
 	then
@@ -78,12 +78,14 @@ linux-gcc-default)
 	;;
 esac
 
-if type p4d >/dev/null && type p4 >/dev/null
+if command -v p4d >/dev/null && type p4 >/dev/null
 then
 	echo "$(tput setaf 6)Perforce Server Version$(tput sgr0)"
 	p4d -V | grep Rev.
 	echo "$(tput setaf 6)Perforce Client Version$(tput sgr0)"
 	p4 -V | grep Rev.
+else
+	echo "WARNING: perforce wasn't installed, see above for clues why"
 fi
 if type git-lfs >/dev/null
 then
