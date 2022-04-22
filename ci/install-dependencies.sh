@@ -43,7 +43,7 @@ macos-latest)
 		git -C "$cask_repo" pull --no-stat --ff-only &&
 		brew install --cask --no-quarantine perforce
 	} ||
-	brew install homebrew/cask/perforce
+	brew install homebrew/cask/perforce || true
 
 	if test -n "$CC_PACKAGE"
 	then
